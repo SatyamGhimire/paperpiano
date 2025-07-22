@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Paper Piano</title>
+  <meta name="description" content="Play piano on printed paper, or just in the air."/>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="real-header" id="navbar">
+    <nav>
+      <ul>
+        <li><a href="app.html">app</a></li>
+        <li><a target="_blank" href="pianolayout.pdf">download layout</a></li>
+      </ul>
+    </nav>
+    <a href="/"><img id="logo" src="logo.png" alt="logo" height="50" width="100"></a>
+    <nav>
+      <ul>
+        <li><a target="_blank" href="https://github.com/SatyamGhimire/paperpiano">github</a></li>
+        <li><a target="_blank" href="https://satyamghimire.com.np">my blog</a></li>
+      </ul>
+    </nav>
+  </header>
+  <article class="art-page">
+    <h1>About</h1>
+<p class="txt">
+  This app lets you play piano using a printable two-page layout. Just download the PDF, print and tape the pages together, then point your webcam at it and start playing. Watching <a target="_blank" href="https://youtu.be/5bhb0Ou03_Y"> the tutorial first </a>is highly recommended to get the best experience.
+</p>
+  <p class="txt">
+  This project has a <b> fundamental limitation: </b>the computer can't tell if you're actually pressing a key. If your finger appears within a key’s coordinates, it counts as a play, even without real contact (or touch). So the printed layout is mostly for visual guidance. That’s why I recommend using the dummy layout and simply playing in the air. Also this website is quite buggy at the moment.
+</p><p class="txt">
+  Huge thanks to the <a href="https://theremin.music.uiowa.edu/MISpiano.html">University of Iowa Electronic Music Studios</a> for providing high-quality, publicly available recordings of piano notes.
+</p>
+
+    <br/>
+	<h2>How it works:</h2>
+<p class="txt">
+  This app uses a machine learning model to detect small and large polygons (red and blue regions). It then maps three white keys and two black keys onto each small polygon, and four white keys and three black keys onto each large polygon. MediaPipe is used to detect your fingers and check whether they intersect with any key's coordinates.
+</p>
+<p class="txt">
+  An offline Python version is also available on the <a target="_blank" href="https://github.com/SatyamGhimire/paperpiano"> GitHub repo.</a> Just install the requirements using pip, and you can play without an internet connection. It's even faster and more accurate than this web app.
+</p>
+	<br/>
+<h2 id="faq">FAQ:</h2>
+
+<p class="txt"><b>1. Do I need to use your layout, or can I make my own?</b></p>
+<p class="txt">
+  The layout I provided was used to train the model, so custom layouts may not work reliably. You’re free to try your own, but be prepared for possible disappointment.
+</p>
+<p class="txt"><b>2. Will it work on mobile or other small-screen devices?</b></p>
+<p class="txt">
+  Technically, yes—but this is an <b>unresponsive app</b>, so the layout may appear broken or awkward. It's strongly recommended to use a desktop or a device with a resolution higher than <b>1024×720 pixels</b>.
+</p>
+	<br/>
+<h2 id="privacy-policy">Privacy Policy:</h2>
+
+<p class="txt">
+  This app uses your browser's local storage to store note sounds, model data, and some other variables. However, none of your personal data is collected. The app runs entirely in your browser with no backend—it's just a few static HTML files.
+</p>
+
+<p class="txt">
+  Third-party libraries are used to power the app: ONNX Runtime (for running the model), OpenCV.js (for image processing), and MediaPipe (for finger tracking). These are safe, widely-used, and industry-standard tools.
+</p>
+
+  </article>
+<footer>
+    <div>
+      <p><a target="_blank" href="https://youtube.com/@glimpseofdetails">yt channel (idea & thoughts)</a></p>
+      <p><a target="_blank" href="https://youtube.com/@god-redd">yt channel (coding and science)</a></p>
+    </div>
+    <div>
+      <p>by Satyam Ghimire, made with love :)</p>
+            <p>2025</p>
+    </div>
+  </footer>
+</body>
+</html>

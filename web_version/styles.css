@@ -1,0 +1,209 @@
+/* i think there are unused styling, but too tired to check*/
+:root {
+    --background: #ffdddd;
+    --foreground: #1f1f1f;
+    --clr-blue: hsl(17, 92%, 24%);
+    --fs-main: 1rem;
+    --fs-big: 3rem;
+    --fs-bigm: 1.25rem;
+    --fs-mid: 1.15rem;
+    --fs-sml: 1rem;
+    --fs-msml: 0.75rem;
+    --fs-smlst: 0.6rem;
+}
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+/* main styling */
+body {
+  margin: auto;
+  font-family: "Poppins", sans-serif;
+  font-size: var(--fs-main);
+  line-height: 1.8;
+  color: var(--foreground);
+  min-height: 100vh;
+    width: min(100%, 1440px);
+  background: var(--background);
+}
+a{
+  color: inherit;
+  text-decoration-color: var(--foreground);
+  text-decoration-thickness: 3px;
+}
+ul,li{
+  list-style: none;
+}
+/* for the navbar */
+.real-header{
+  display: flex;
+  padding: 1rem 0;
+  justify-content: space-around;
+  border-bottom: solid 3px var(--foreground);
+  z-index: 2;
+  position: sticky;
+  top: 0;
+  background-color: inherit;
+  transition: opacity 0.3s ease-in-out, transform 0.25s ease-in-out;
+}
+/* homepage headings */
+.h1s-main{
+  height: 100%;
+  text-align:center;
+  line-height: 2.6;
+  background-image: url(bg.png);
+  background-size: cover;
+
+  padding-bottom: 1.5rem;
+}
+h1{
+  font-size: var(--fs-big);
+}
+.clr-main{
+  color: var(--clr-blue);
+}
+h2{
+  font-size: var(--fs-bigm);
+}
+.tiny-txt{
+  font-size: var(--fs-smlst);
+  text-align: end;
+  margin-right: 1rem;
+}
+.sign{
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+  margin: auto;
+  font-size: var(--fs-mid);
+  font-weight: bold;
+}
+.sign>li{
+  border: solid 3px var(--foreground);
+  text-align: center;
+  border-radius: 8px;
+}
+.sign>:nth-child(2){
+  background: linear-gradient(360deg, var(--clr-blue) 1%, var(--background) 99%);
+}
+.cta-button{
+  text-decoration: none;
+  display:block;
+  padding: 0 1.5rem;
+    box-shadow: var(--foreground) 4px 3px 8px;
+
+}
+.cta-button:hover{
+  background-color: var(--foreground);
+  color: var(--background);
+  transition: ease-in 0.15s;
+}
+/* footer */
+footer{
+    position: relative;
+    width: 100%;
+  display: flex;
+  padding: 1rem;
+  font-size: var(--fs-msml);
+  justify-content: space-between;
+  background-color: var(--clr-blue);
+  color: #ffdddd;
+}
+footer>:nth-child(2){
+    text-align: right;
+}
+.txt{
+  font-size: var(--fs-sml);
+  margin: 0.25rem 0.75rem;
+}
+.art-page{
+  width: 90%;
+  margin: auto;
+  padding: 1rem 2rem;
+  flex: 1;
+}
+
+#video-container {
+    position: relative;
+    width: 720px; /* or 100% or whatever size you want */
+    height: 405px;
+  }
+
+#webcam, #output-masks {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#output-masks {
+  opacity: 0.5;
+  pointer-events: none; /* lets mouse/touch events pass through to video or other layers */
+}
+#left {
+  width: 100%;
+  padding-top: 1rem;
+}
+.btns{
+  width: 100%;
+  margin-top: 2rem;
+  text-align: center;
+}
+button {
+  margin: 0.5rem;
+  padding: .5rem;
+  font-family: inherit;
+  border: solid 2px var(--clr-blue);
+  cursor: pointer;
+  box-shadow: var(--foreground) 0px 3px 8px;
+}
+button:hover{
+  background-color: var(--foreground);
+  color: var(--background);  
+  transition: ease-in 0.15s;
+}
+#capture-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+#right {
+  width: 40%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  align-items: center;
+  padding: 1rem;
+}
+.output-images{
+  display: flex;
+  gap: 1rem;
+}
+.result-box {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: black;
+  margin-bottom: 1rem;
+}
+#captured-img, #raw-canvas {
+  width: 100%;
+  height: 100%;
+}
+.controls{
+  text-align: right;
+}
+.spinner {
+  display: inline-block;
+  width: 300px;
+  height: 100px;
+  border: 20px solid #ccc;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin-left: 1rem;
+  font-family: inherit;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

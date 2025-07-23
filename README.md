@@ -1,6 +1,6 @@
 # Paper piano (piano on pages)
 
-Play piano on printed paper, or just in the air using a dummy layout. I highly recommend **[watching the tutorial first.](https://youtu.be/5bhb0Ou03_Y)**
+Play piano on printed paper, or just in the air using a dummy layout. I highly recommend **[watching the tutorial first.](https://youtu.be/89Pao1wtyRs)**
 
 Website: [piano on pages](https://pianoon.pages.dev)
 

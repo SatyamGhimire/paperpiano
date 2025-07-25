@@ -1,0 +1,230 @@
+:root {
+    --background: #e5ffdd;
+    --foreground: #1f1f1f;
+    --clr-blue: hsl(347, 97%, 29%);
+    --fs-main: 1rem;
+    --fs-big: 3rem;
+    --fs-bigm: 1.25rem;
+    --fs-msml: 0.75rem;
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    margin: auto;
+    font-family: "Poppins", sans-serif;
+    font-size: var(--fs-main);
+    line-height: 1.8;
+    color: var(--foreground);
+    min-height: 100vh;
+    width: min(100%, 1440px);
+    background: var(--background);
+}
+/* for the app page*/
+.main{
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+}
+.video-box{
+    position: relative;
+    width: 960px;
+	height:auto;
+}
+#webcam{
+    width: 100%;
+}
+#layout-canvas{
+    left: 0;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    opacity: 0.5;
+}
+.right{
+    width: 40%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    align-items: center;
+    padding: 1rem;
+}
+.out-images{
+    display: flex;
+    gap: 1rem;
+}
+.result-box {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: black;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+#captured-img, #raw-canvas {
+  width: 100%;
+  height: 100%;
+}
+.note-display{
+    width: 80%;
+    display: block; 
+    margin: auto; 
+    text-align: center; 
+    padding:0.5rem;
+    border-radius: 4px;
+    border: solid 2px var(--clr-blue);
+    background-color: rgb(151, 132, 255);
+}
+.options{
+    background-color: aliceblue;
+    border: solid 1px black;
+    border-radius: 4px;
+    padding: 0.25rem;
+    width: 60%;
+    margin-left: 40%;
+}
+.btns{
+  width: 100%;
+  text-align: center;
+}
+button {
+  margin: 0.5rem;
+  padding: .5rem;
+  font-family: inherit;
+  border: solid 2px var(--clr-blue);
+  cursor: pointer;
+  box-shadow: var(--foreground) 0px 3px 8px;
+}
+button:hover{
+  background-color: var(--foreground);
+  color: var(--background);  
+  transition: ease-in 0.15s;
+}
+
+/* footer */
+/* footer */
+footer{
+    padding: 0.5rem 1rem;
+    margin-top: 1.75rem;
+    display: flex;
+    font-size: var(--fs-msml);
+    justify-content: space-between;
+    background-color: var(--clr-blue);
+    color: #ffdddd;
+}
+footer>:nth-child(2){
+    text-align: right;
+}
+/* for homepage */
+a{
+  color: inherit;
+  text-decoration-color: var(--foreground);
+  text-decoration-thickness: 3px;
+}
+ul,li{
+  list-style: none;
+}
+.real-header{
+  display: flex;
+  padding: 1rem 0;
+  justify-content: space-around;
+  border-bottom: solid 3px var(--foreground);
+  z-index: 2;
+  position: sticky;
+  top: 0;
+  background-color: inherit;
+}
+.h1s-main{
+  height: 100%;
+  text-align:center;
+  line-height: 2.6;
+}
+h1{
+  font-size: var(--fs-big);
+}
+.clr-main{
+  color: var(--clr-blue);
+}
+h2{
+  font-size: var(--fs-bigm);
+}
+.sign{
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+  margin: 1rem auto;
+  font-weight: bold;
+}
+.sign>li{
+  border: solid 2px var(--foreground);
+  text-align: center;
+  border-radius: 4px;
+}
+.sign>:nth-child(2){
+  background: linear-gradient(360deg, var(--clr-blue) 1%, var(--background) 99%);
+}
+.cta-button{
+    text-decoration: none;
+    display:block;
+    padding: 0 1.5rem;
+    box-shadow: var(--foreground) 4px 3px 8px;
+}
+.cta-button:hover{
+  background-color: var(--foreground);
+  color: var(--background);
+  transition: ease-in 0.15s;
+}
+.txt{
+  margin: 0.25rem 0.75rem;
+}
+.home-main{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;    
+  background-image: url(bg.png);
+  background-size: cover;
+}
+.vid-home{
+    text-align: center;
+}
+/* about page */
+.art-page{
+  width: 90%;
+  margin: auto;
+  padding: 1rem 2rem;
+}
+@media(max-width:1200px){
+    :root {
+    --fs-big: 1.5rem;
+    --fs-bigm: 0.75rem;
+    --fs-msml: 0.75rem;
+    }
+}
+@media(max-width:950px){
+    :root {
+    --fs-big: 1.5rem;
+    --fs-bigm: 0.75rem;
+    --fs-msml: 0.75rem;
+    }
+    .home-main{
+        display: block;
+    }
+    .vid-home{
+        height: auto;
+    }
+    .vid-home>video{
+        width: 80%;
+        height: auto;
+    }
+    .real-header{
+        font-size: var(--fs-msml);
+    }
+    .cta-button{
+        padding: 0 1rem;
+        font-size: var(--fs-msml);
+    }
+    .sign{
+        gap: 1rem;
+    }
+}

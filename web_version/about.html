@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About - Paper Piano</title>
   <meta name="description" content="Play piano on printed paper, or just in the air."/>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
@@ -29,10 +29,10 @@
   <article class="art-page">
     <h1>About</h1>
 <p class="txt">
-  This app lets you play piano using a printable two-page layout. Just download the PDF, print and tape the pages together, then point your webcam at it and start playing. Watching <a target="_blank" href="https://youtu.be/89Pao1wtyRs"> the tutorial first </a>is highly recommended to get the best experience.
+  This app lets you play piano using a printable two-page layout. Just download the PDF, print and tape the pages together, then point your webcam at it, capture the frame and start playing. Watching <a target="_blank" href="https://youtu.be/89Pao1wtyRs"> the tutorial first </a>is highly recommended to get the best experience.
 </p>
   <p class="txt">
-  This project has a <b> fundamental limitation: </b>the computer can't tell if you're actually pressing a key. If your finger appears within a key’s coordinates, it counts as a play, even without real contact (or touch). So the printed layout is mostly for visual guidance. That’s why I recommend using the dummy layout and simply playing in the air. Also this website is quite buggy at the moment.
+  This project has a <b> fundamental limitation though: </b>the computer can't tell if you're actually pressing a key. If your finger appears within a key’s coordinates, it counts as a play, even without real contact (or touch). So the printed layout is mostly for visual guidance. That’s why I recommend using the dummy layout and simply playing in the air. In the previous version, you would have to press the button to load the dummy layout, but now it loads automatically, so it's easier now.
 </p><p class="txt">
   Huge thanks to the <a href="https://theremin.music.uiowa.edu/MISpiano.html">University of Iowa Electronic Music Studios</a> for providing high-quality, publicly available recordings of piano notes.
 </p>
@@ -43,7 +43,7 @@
   This app uses a machine learning model to detect small and large polygons (red and blue regions). It then maps three white keys and two black keys onto each small polygon, and four white keys and three black keys onto each large polygon. MediaPipe is used to detect your fingers and check whether they intersect with any key's coordinates.
 </p>
 <p class="txt">
-  An offline Python version is also available on the <a target="_blank" href="https://github.com/SatyamGhimire/paperpiano"> GitHub repo.</a> Just install the requirements using pip, and you can play without an internet connection. It's even faster and more accurate than this web app.
+  An offline Python version is also available on the <a target="_blank" href="https://github.com/SatyamGhimire/paperpiano"> GitHub repo.</a> Just install the requirements using pip, and you can play without an internet connection. It's even faster than this web app.
 </p>
 	<br/>
 <h2 id="faq">FAQ:</h2>
@@ -54,13 +54,13 @@
 </p>
 <p class="txt"><b>2. Will it work on mobile or other small-screen devices?</b></p>
 <p class="txt">
-  Technically, yes—but this is an <b>unresponsive app</b>, so the layout may appear broken or awkward. It's strongly recommended to use a desktop or a device with a resolution higher than <b>1024×720 pixels</b>.
+  Technically, yes. But this is an <b>unresponsive app</b>, so the layout may appear broken or awkward. It's strongly recommended to use a desktop or a device with a resolution higher than <b>1024×720 pixels</b>.
 </p>
 	<br/>
 <h2 id="privacy-policy">Privacy Policy:</h2>
 
 <p class="txt">
-  This app uses your browser's local storage to store note sounds, model data, and some other variables. However, none of your personal data is collected. The app runs entirely in your browser with no backend—it's just a few static HTML files.
+  This app uses your browser's local storage to store note sounds, machine learning model, images, and some other variables. However, none of your personal data is collected. The app runs entirely in your browser with no backend. It's just a few static HTML files.
 </p>
 
 <p class="txt">

@@ -10,8 +10,6 @@ _Although detecting touch with a camera has flaws, I think it's still fun._
 - Web version
 - Python version
 
-The web version has many bugs, it breaks when you refresh the page, so I recommend the python version. 
-
 ### Python version installation and dependencies
 ```bash
 pip install -r requirements.txt
@@ -25,6 +23,7 @@ Dependencies:
 
 I wanted to use `pydub` and `simpleaudio` for fade out effect, but ran into problem with installation, so staying with `playsound`.
 Open `runme.bat` and it will run the files in order.
+This project was created in a computer running `python 3.12` , so other versions might not work.
 
 ### Run locally web version
  Clone the repo and just run with the liveserver or with this command: `npx serve`
@@ -43,8 +42,7 @@ Open `runme.bat` and it will run the files in order.
 Huge thanks to [University of Iowa Electronics Music Studios](https://theremin.music.uiowa.edu/MISpiano.html) for the publicly available sounds for each piano keys.
 
 ## Contributing
-I know this project is full of bugs and bad practices. I have tried my best but I guess I am not that good. So, I am always open to suggestions, teaching, ideas, and improvements.
-So please contribute.
+I am always open to suggestions, teaching, ideas, and improvements.
 
 ## License
 

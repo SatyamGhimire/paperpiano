@@ -1,250 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Paper piano</title>
-  <meta name="description" content="Play piano on printed paper, or just in the air."/>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
-  <script async src="https://docs.opencv.org/4.x/opencv.js" onload="onOpenCvReady();"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-  <script src="createjsons.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <script type="module" src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 </head>
-
 <body>
-<div id="loading-message" style="position: absolute; top: 10px; left: 10px; z-index: 1000; font-family: monospace;">
-  <span>Loading hand detection...</span>
-  <div class="spinner"></div>
-</div>
-
-  <div id="main">
-    <div id="left">
-      <div id="video-container">
-        <video id="webcam" autoplay playsinline muted></video>
-        <canvas id="output-masks"></canvas>
-      </div>
-      <div class="btns">
-        <button id="dummy-layout">Play in the air</button>
-        <button id="capture-btn">Play on paper (1)</button>
-        <button id="make-mask" disabled>Like the mask? (2)</button>
-      </div>
-      <span class="tiny-txt"><i><b>Note: to play with printed paper, first click (1) and then if you like the generated mask, press (2).</b></i></span>
-    </div>
-    <div id="right">
-      <div class="output-images">
-        <div class="result-box">
-          <img id="captured-img" alt="Captured Frame" />
+    <div class="main">
+        <div class="left">
+            <div class="video-box">
+                <video id="webcam" autoplay playsinline muted></video>
+                <canvas id="layout-canvas"></canvas>
+            </div>
+            <div class="btns">
+                <button id="dummy-layout">Play in the air</button>
+                <button id="capture-btn">Play on paper (1)</button>
+                <button id="make-mask" disabled>Like the mask? (2)</button>
+            </div> 
         </div>
-        <div class="result-box">
-          <canvas id="raw-canvas"></canvas>
+        <div class="right">
+            <div class="out-images">
+                <div class="result-box">
+                    <img id="captured-img" alt="captured frame">
+                </div>
+                <div class="result-box">
+                    <canvas id="raw-canvas"></canvas>
+                </div>
+            </div>
+            <br>
+                <span class="note-display">Playing 🎵🎹: <span id="note-display"></span></span>
+            <br>
+            <div class="options">
+                <div class="controls">
+                  <label>🖐️ Max Hands: <span id="hands-count">2</span></label><br>
+                  <input type="range" id="maxHandsSlider" min="1" max="2" step="1" value="2"><br>
+                  <label>🔎 Detection Confidence: <span id="detect-conf">0.3</span></label><br>
+                  <input type="range" id="detectSlider" min="0" max="1" step="0.1" value="0.3"><br>
+                  <label>🎯 Tracking Confidence: <span id="track-conf">0.3</span></label><br>
+                  <input type="range" id="trackSlider" min="0" max="1" step="0.1" value="0.3"><br>
+                  <span class="tiny-txt"><i>Note: Pointy, middle, and ring finger only supported!</i></span><br>
+                </div>
+            </div>
         </div>
-      </div>
-      <div style="height:20px;">
-        <span id="note-display">Note: </span>
-      </div>
-      <div class="controls">
-        <label>🖐️ Max Hands: <span id="hands-count">2</span></label><br>
-        <input type="range" id="maxHandsSlider" min="1" max="2" step="1" value="2"><br>
-        <label>🔎 Detection Confidence: <span id="detect-conf">0.3</span></label><br>
-        <input type="range" id="detectSlider" min="0" max="1" step="0.1" value="0.3"><br>
-        <label>🎯 Tracking Confidence: <span id="track-conf">0.3</span></label><br>
-        <input type="range" id="trackSlider" min="0" max="1" step="0.1" value="0.3"><br>
-        <span class="tiny-txt"><i>Note: Pointy, middle, and ring finger only supported!</i></span><br>
-      </div>
     </div>
-  </div>
-  <footer>
-    <div>
-      <p><a href="/">home</a></p>
-      <p><a href="/about.html">about</a></p>
-      <p><a href="/pianolayout.pdf">download layout</a></p>
-    </div>
-    <div>
-      <p><a target="_blank" href="https://youtu.be/89Pao1wtyRs">watch tutorial</a></p>
-      <p><a target="_blank" href="https://youtube.com/@glimpseofdetails">yt channel (idea & thoughts)</a></p>
-      <p><a target="_blank" href="https://youtube.com/@god-redd">yt channel (coding & science)</a></p>
-    </div>
-    <div>
-      <p>by Satyam Ghimire, made with love :)</p>
-      <ul>
-        <li><a target="_blank" href="https://satyamghimire.com.np">my blog</a></li>
-        <li><a target="_blank" href="https://github.com/SatyamGhimire/paperpiano">github</a></li>
-      </ul>
-    </div>
-  </footer>
-
-  <script>
-  if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => {
-        console.log('Service Worker registered:', reg);
-      })
-      .catch(err => {
-        console.error('Service Worker registration failed:', err);
-      });
-  });
-}
-
-    const VIDEO_WIDTH = 1280;
-    const VIDEO_HEIGHT = 720;
-    const IMAGE_SIZE = 512;
-    const NUM_CLASSES = 3;
-
-    const CLASS_COLORS = {
-      0: [0, 0, 0],
-      1: [0, 0, 255],
-      2: [255, 0, 0],
-    };
-
-    const MODEL_URL = 'model.onnx';
-
-    let session;
-    let modelLoaded = false;
-
-    const captureBtn = document.getElementById('capture-btn');
-    const likeMask = document.getElementById('make-mask');
-    const video = document.getElementById('webcam');
-    const capturedImg = document.getElementById('captured-img');
-    const rawCanvas = document.getElementById('raw-canvas');
-    const ctxRaw = rawCanvas.getContext('2d');
-
-  async function loadModel() {
-  console.log('Loading ONNX model...');
-  const response = await fetch(MODEL_URL);
-  const arrayBuffer = await response.arrayBuffer();
-  return ort.InferenceSession.create(arrayBuffer);
-}
-
-
-    async function setupWebcam() {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: "user",
-            width: VIDEO_WIDTH,
-            height: VIDEO_HEIGHT
-          }
-        });
-        video.srcObject = stream;
-        await new Promise(resolve => video.onloadedmetadata = resolve);
-        video.play();
-      } catch (err) {
-        alert('Webcam access error: ' + err);
-      }
-    }
-
-    function preprocessImage(canvas) {
-      const tempCanvas = document.createElement('canvas');
-      tempCanvas.width = IMAGE_SIZE;
-      tempCanvas.height = IMAGE_SIZE;
-      const ctx = tempCanvas.getContext('2d');
-      ctx.drawImage(canvas, 0, 0, IMAGE_SIZE, IMAGE_SIZE);
-      const { data } = ctx.getImageData(0, 0, IMAGE_SIZE, IMAGE_SIZE);
-      const floatData = new Float32Array(IMAGE_SIZE * IMAGE_SIZE * 3);
-      for (let i = 0; i < IMAGE_SIZE * IMAGE_SIZE; i++) {
-        floatData[i * 3 + 0] = data[i * 4 + 2] / 255;
-        floatData[i * 3 + 1] = data[i * 4 + 1] / 255;
-        floatData[i * 3 + 2] = data[i * 4 + 0] / 255;
-      }
-      return new ort.Tensor('float32', floatData, [1, IMAGE_SIZE, IMAGE_SIZE, 3]);
-    }
-
-    function renderRawMask(predMask, w, h) {
-      rawCanvas.width = VIDEO_WIDTH;
-      rawCanvas.height = VIDEO_HEIGHT;
-      const temp = document.createElement('canvas');
-      temp.width = w;
-      temp.height = h;
-      const tempCtx = temp.getContext('2d');
-      const rawData = new Uint8ClampedArray(w * h * 4);
-      for (let i = 0; i < w * h; i++) {
-        const color = CLASS_COLORS[predMask[i]];
-        rawData[i * 4 + 0] = color[0];
-        rawData[i * 4 + 1] = color[1];
-        rawData[i * 4 + 2] = color[2];
-        rawData[i * 4 + 3] = 255;
-      }
-      const imageData = new ImageData(rawData, w, h);
-      tempCtx.putImageData(imageData, 0, 0);
-      ctxRaw.clearRect(0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
-      ctxRaw.drawImage(temp, 0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
-    }
-
-    async function runInference(canvas) {
-      const inputTensor = preprocessImage(canvas);
-      const feeds = {};
-      feeds[session.inputNames[0]] = inputTensor;
-      const results = await session.run(feeds);
-      const output = results[session.outputNames[0]];
-      const [_, h, w, numClasses] = output.dims;
-      const data = output.data;
-      const predMask = new Uint8Array(w * h);
-      for (let i = 0; i < w * h; i++) {
-        let maxIdx = 0, maxVal = data[i * numClasses];
-        for (let c = 1; c < numClasses; c++) {
-          const val = data[i * numClasses + c];
-          if (val > maxVal) {
-            maxVal = val;
-            maxIdx = c;
-          }
-        }
-        predMask[i] = maxIdx;
-      }
-      renderRawMask(predMask, w, h);
-    }
-
-    captureBtn.addEventListener('click', async () => {
-      if (!modelLoaded) {
-        captureBtn.disabled = true;
-        captureBtn.textContent = 'Loading Model...';
-        try {
-          session = await loadModel();
-          modelLoaded = true;
-          captureBtn.textContent = 'Play on paper (1)';
-          captureBtn.disabled = false;
-          likeMask.disabled = false;
-        } catch (e) {
-          console.error('Model load error:', e);
-          captureBtn.textContent = 'Model Load Failed';
-          return;
-        }
-      }
-
-      const canvas = document.createElement('canvas');
-      canvas.width = VIDEO_WIDTH;
-      canvas.height = VIDEO_HEIGHT;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(video, 0, 0, VIDEO_WIDTH, VIDEO_HEIGHT);
-      capturedImg.src = canvas.toDataURL('image/png');
-      await runInference(canvas);
-    });
-
-    document.getElementById('dummy-layout').addEventListener('click', () => {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.getElementById('raw-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0);
-        console.log("dummy.png loaded and drawn to canvas");
-      };
-      img.onerror = () => {
-        console.error("failed to load dummy.png");
-      };
-      img.src = 'dummy.png';
-    });
-
-    setupWebcam();
-  </script>
-
-  <script type="module" src="play.js"></script>
-
+    <footer>
+        <div>
+          <p><a href="/">home</a></p>
+          <p><a href="/about.html">about</a></p>
+          <p><a href="/pianolayout.pdf">download layout</a></p>
+        </div>
+        <div>
+          <p><a target="_blank" href="https://youtu.be/89Pao1wtyRs">watch tutorial</a></p>
+          <p><a target="_blank" href="https://youtube.com/@glimpseofdetails">yt channel (idea & thoughts)</a></p>
+          <p><a target="_blank" href="https://youtube.com/@god-redd">yt channel (coding & science)</a></p>
+        </div>
+        <div>
+          <p>by Satyam Ghimire, made with love :)</p>
+          <ul>
+            <li><a target="_blank" href="https://satyamghimire.com.np">my blog</a></li>
+            <li><a target="_blank" href="https://github.com/SatyamGhimire/paperpiano">github</a></li>
+          </ul>
+        </div>
+    </footer>
 </body>
 </html>

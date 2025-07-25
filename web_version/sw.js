@@ -1,12 +1,14 @@
-const CACHE_NAME = 'paperpiano-v1';
+const CACHE_NAME = 'paperpiano-v2';
 
 const ASSETS_TO_CACHE = new Set([
-  '/', '/index.html', '/styles.css', '/play.js', '/createjsons.js',
-  '/model.onnx', '/dummy.png',
-  'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js',
+    '/pianolayout.pdf',
+  '/model.onnx','/demo.mp4',
+  './dummylayout.json',
   'https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js',
   'https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js',
   'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task',
+  'https://docs.opencv.org/4.x/opencv.js',
+  'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js',
   'sounds/C3.mp3', 'sounds/Db3.mp3', 'sounds/D3.mp3', 'sounds/Eb3.mp3', 'sounds/E3.mp3',
   'sounds/F3.mp3', 'sounds/Gb3.mp3', 'sounds/G3.mp3', 'sounds/Ab3.mp3', 'sounds/A3.mp3',
   'sounds/Bb3.mp3', 'sounds/B3.mp3', 'sounds/C4.mp3', 'sounds/Db4.mp3', 'sounds/D4.mp3',
